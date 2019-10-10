@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -38,9 +39,14 @@ public class Haksa extends JFrame {
 
 			e.printStackTrace();
 		}
-
-		this.setTitle("학사 관리");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		
+		panel = new JPanel();
+//		setLayout(new FlowLayout());
+		panel.removeAll();// 모든컴포넌스 삭제
+		panel.revalidate();// 다시활성화
+		panel.repaint(); // 다시 그리기
+		panel.add(new MainImg()); // 화면 호충
+		panel.setLayout(null);
 
 		// menu1 Start
 		JMenuBar mb = new JMenuBar();
@@ -122,13 +128,13 @@ public class Haksa extends JFrame {
 
 		menu3.add(menu3Item1);
 		mb.add(menu3);
-
-		panel = new JPanel();
+		this.setJMenuBar(mb);
+		
+		
 
 		this.add(panel);
 		
-		
-		this.setJMenuBar(mb);
+
 
 		this.addWindowListener(new WindowAdapter() {
 			@Override

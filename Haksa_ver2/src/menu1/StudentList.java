@@ -59,7 +59,8 @@ public class StudentList extends JPanel {
 		selectBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				e.getSource();
+				
+				System.out.println(e.getActionCommand());
 		
 				System.out.println(e.getSource().equals("selectedItemReminder"));
 			}
