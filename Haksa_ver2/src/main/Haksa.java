@@ -1,0 +1,164 @@
+package main;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
+import menu1.StudentInsert;
+import menu1.StudentList;
+import menu2.BookInfo;
+import menu2.BookRent;
+import util.DBManager;
+
+public class Haksa extends JFrame {
+	JPanel panel = new JPanel();
+	public static Statement stmt = null;
+	public static PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	public static Connection conn = null;
+	public Haksa() { 
+
+		try {
+			DBManager db = new DBManager();
+			conn = db.getConnection();
+			stmt = conn.createStatement();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		this.setTitle("학사 관리");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// menu1 Start
+		JMenuBar mb = new JMenuBar();
+		JMenu menu1 = new JMenu("학생관리");
+		JMenuItem menu1Item1 = new JMenuItem("학생목록");
+		menu1Item1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("학생 목록");
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기
+				panel.add(new StudentList()); // 화면 호충
+				panel.setLayout(null);
+
+			}
+		});
+		
+		
+
+		menu1.add(menu1Item1);
+
+		// menu1 End
+		JMenuItem menu1Item2 = new JMenuItem("학생 등록");
+		menu1Item2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("학생 등록");
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기
+				panel.add(new StudentInsert()); // 화면 호충
+				panel.setLayout(null);
+
+			}
+		});
+		
+		
+		
+		menu1.add(menu1Item2);
+
+		mb.add(menu1);
+		// menu2 Start
+		JMenu menu2 = new JMenu("도서관리");
+		JMenuItem menu2Item1 = new JMenuItem("대출 정보");
+		menu2Item1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("학생 대출목록");
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기
+				panel.add(new BookRent()); // 화면 호충
+				panel.setLayout(null);
+
+			}
+		});
+		menu2.add(menu2Item1);
+		mb.add(menu2);
+		// menu2 End
+
+		JMenu menu3 = new JMenu("도서통계");
+		JMenuItem menu3Item1 = new JMenuItem("대출 현황");
+
+		menu3Item1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("학생 대출현황");
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기	
+         		panel.add(new BookInfo());
+
+				panel.setLayout(null);
+			}
+		});
+
+		menu3.add(menu3Item1);
+		mb.add(menu3);
+
+		panel = new JPanel();
+
+		this.add(panel);
+		
+		
+		this.setJMenuBar(mb);
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+					if (stmt != null) {
+						stmt.close();
+					}
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (Exception e1) {
+				}
+			}
+		});
+
+		
+		this.setSize(700, 600);
+		this.setVisible(true);
+
+	}
+
+	public static void main(String[] args) {
+		new Haksa();
+	}
+
+}
