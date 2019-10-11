@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import menu1.DeptManager;
 import menu1.StudentInsert;
 import menu1.StudentList;
-import menu2.BookInfo;
 import menu2.BookRent;
+import menu3.BookInfo;
 import util.DBManager;
 
 public class Haksa extends JFrame {

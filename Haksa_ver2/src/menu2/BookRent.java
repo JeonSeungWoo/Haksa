@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -31,14 +32,16 @@ public class BookRent extends JPanel{
 	Connection conn = null; 
 	PreparedStatement pstmt = null;
 	Statement stmt = Haksa.stmt;
+	
+	JComboBox deptSelectBox; 
 	public BookRent() {
 		try {
 			DBManager db = new DBManager();
 			conn = db.getConnection();
 		} catch (Exception e) {
 		}
-		query = "select s.*,b.*,br.* " + "from student2 s, books b, bookRent br " + "where br.id=s.id "
-				+ "and br.bookNo=b.no";
+		query = "select s.*,b.*,br.* " + "from student2 s, tbl_book b, bookRent br " + "where br.id=s.id "
+				+ "and br.bookNo=b.bid";
 		
 		setLayout(null);// 레이아웃설정. 레이아웃 사용 안함.
 
@@ -47,19 +50,43 @@ public class BookRent extends JPanel{
 		
 		add(l_dept);
  
-		String[] dept = { "전체", "컴퓨터시스템", "멀티미디어", "컴퓨터공학" };
-		JComboBox cb_dept = new JComboBox(dept);
-		cb_dept.setBounds(45, 10, 100, 20);
-		add(cb_dept);
-		cb_dept.addActionListener(new ActionListener() {
+		// 셀렉트 ====================
+				ArrayList<String> list = new ArrayList<String>();
+				try {
+					rs = stmt.executeQuery("select * from tbl_dept");
+					while (rs.next()) {
+						list.add(rs.getString("dept"));
+					}
+
+				} catch (Exception e) {
+
+				}
+
+				String[] selectRow = new String[list.size()];
+				
+				for (int i = 1; i < list.size()+1; i++) {
+					selectRow[i] = list.get(i);
+				}
+
+				deptSelectBox = new JComboBox(selectRow);
+				deptSelectBox.setBounds(45, 10, 100, 20);
+				add(deptSelectBox);
+		//=======================================================
+				
+//		String[] dept = { "전체", "컴퓨터시스템", "멀티미디어", "컴퓨터공학" };
+//		JComboBox cb_dept = new JComboBox(dept);
+//		cb_dept.setBounds(45, 10, 100, 20);
+//		add(cb_dept);
+		
+			deptSelectBox.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb=(JComboBox)e.getSource();     
 			      System.out.println(cb.getSelectedIndex());
 			      int deptIndex=cb.getSelectedIndex();
-			      query = "select s.*,b.*,br.* " + "from student2 s, books b, bookRent br " + "where br.id=s.id "
-							+ "and br.bookNo=b.no";
+			      query = "select s.*,b.*,br.* " + "from student2 s, tbl_book b, bookRent br " + "where br.id=s.id "
+							+ "and br.bookNo=b.bid";
 			      
 			      if(deptIndex==0){ // 전체
 			       // Select문 실행
@@ -83,7 +110,7 @@ public class BookRent extends JPanel{
 		});
 		
 
-		String colName[] = { "학번", "이름", "도서명", "대출일" };
+		String colName[] = { "학번", "이름", "도서명", "대출일","반납일" };
 		model = new DefaultTableModel(colName, 0);
 		table = new JTable(model);
 		table.setPreferredScrollableViewportSize(new Dimension(470, 200));
@@ -107,11 +134,12 @@ public class BookRent extends JPanel{
 			model.setNumRows(0);
 
 			while (rs.next()) {
-				String[] row = new String[4];// 컬럼의 갯수가 4
+				String[] row = new String[5];// 컬럼의 갯수가 4
 				row[0] = rs.getString("id");
 				row[1] = rs.getString("name");
 				row[2] = rs.getString("title");
-				row[3] = rs.getString("rdate");
+				row[3] = rs.getString("indate");
+				row[4] = rs.getString("outdate");
 				model.addRow(row);
 			}
 			rs.close();

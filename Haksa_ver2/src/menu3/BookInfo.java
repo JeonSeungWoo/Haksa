@@ -1,4 +1,4 @@
-package menu2;
+package menu3;
 
 import java.awt.Color;
 import java.awt.Graphics;
