@@ -32,13 +32,14 @@ public class StudentList extends JPanel {
 	PreparedStatement pstmt = null;
 	Statement stmt = Haksa.stmt;
 	// 택스트 필드
-	JTextField tfId = null;
+	JTextField tfSearch = null;
 	JTextField tfName = null;
 	JTextField tfDept = null;
 	JTextField tfAdress = null;
 	DefaultTableModel model = null;
 	JTable table = null;
-
+	JComboBox selectBox = new JComboBox();
+	String query;
 	public StudentList() {
 
 		try {
@@ -46,6 +47,8 @@ public class StudentList extends JPanel {
 			conn = db.getConnection();
 		} catch (Exception e) {
 		}
+		
+		query = "select * from student2 ";
 
 		DBManager db = new DBManager();
 		db.getConnection();
@@ -54,22 +57,12 @@ public class StudentList extends JPanel {
 
 		String[] selectRow = { "전체", "학번", "이름", "학과", "주소" };
 
-		JComboBox selectBox = new JComboBox(selectRow);
-		
-		selectBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println(e.getActionCommand());
-		
-				System.out.println(e.getSource().equals("selectedItemReminder"));
-			}
-		});
+		selectBox = new JComboBox(selectRow);
 		
 		add(selectBox);
 		
-		tfId = new JTextField(14);
-		add(tfId);
+		tfSearch = new JTextField(14);
+		add(tfSearch);
 
 		JButton btnSearch = new JButton("검색");
 		add(btnSearch);
@@ -79,19 +72,30 @@ public class StudentList extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					rs = stmt.executeQuery("select * from student2 where id = '" + tfId.getText() + "'");
-
-					model.setNumRows(0);
-
-					String[] row = new String[4];// 컬럼의 갯수가 3
-					while (rs.next()) {
-
-						row[0] = rs.getString("id");
-						row[1] = rs.getString("name");
-						row[2] = rs.getString("dept");
-						row[3] = rs.getString("ADDRESS");
-						model.addRow(row);
+					System.out.println("1 : " +selectBox.getSelectedIndex());
+					System.out.println("2 : " + tfSearch);
+					int selectIdx = selectBox.getSelectedIndex();
+					query = "select * from student2 ";
+					
+					if (selectIdx == 0) {
+						query += "order by id desc";
+					}else if(selectIdx == 1) {
+						query += "where id like '%"+tfSearch.getText()+"%' ";
+					    query += "order by id desc";
+					}else if(selectIdx == 2) {
+						query += "where id like '%"+tfSearch.getText()+"%' ";
+					    query += "order by id desc";
+				
+					}else if(selectIdx == 3) {
+						query += "where id like '%"+tfSearch.getText()+"%' ";
+					    query += "order by id desc";
+					 
+					}else if(selectIdx == 4) {
+						query += "where id like '%"+tfSearch.getText()+"%' ";
+					    query += "order by id desc";
+					
 					}
+				    search();
 
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -123,7 +127,7 @@ public class StudentList extends JPanel {
 				String dept = (String) model.getValueAt(table.getSelectedRow(), 2);
 				String address = (String) model.getValueAt(table.getSelectedRow(), 3);
 
-				tfId.setText(id);
+				tfSearch.setText(id);
 				tfName.setText(name);
 				tfDept.setText(dept);
 				tfAdress.setText(address);
@@ -137,7 +141,7 @@ public class StudentList extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				totalList();
+				search();
 			}
 
 		});
@@ -152,13 +156,13 @@ public class StudentList extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String idText = tfId.getText();
+					String idText = tfSearch.getText();
 					stmt.executeUpdate(
 							"update student2 set  name = '" + tfName.getText() + "', dept = '" + tfDept.getText()
 									+ "', ADDRESS = '" + tfAdress.getText() + "'" + " where id = '" + idText + "'");
 
 					JOptionPane.showMessageDialog(null, "수정되었습니다.");
-					totalList();
+					search();
 
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -175,7 +179,7 @@ public class StudentList extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String idText = tfId.getText();
+					String idText = tfSearch.getText();
 					System.out.println(idText);
 					int result = 0;
 
@@ -187,8 +191,8 @@ public class StudentList extends JPanel {
 						JOptionPane.showMessageDialog(null, "취소했습니다.");
 					}
 
-					totalList();
-					tfId.setText("");
+					search();
+					tfSearch.setText("");
 					tfName.setText("");
 					tfDept.setText("");
 				} catch (Exception e2) {
@@ -203,32 +207,37 @@ public class StudentList extends JPanel {
 		this.setSize(300, 500);
 		this.setVisible(true);
 
-		totalList();
+		search();
 	}
 
-	// 전체 리스트
-	public void totalList() {
+	
+
+	
+	public void search() {
 		try {
-			rs = stmt.executeQuery("select * from student2");
+			System.out.println("연결되었습니다.....");
+			System.out.println(query);
+			// Select문 실행
+			ResultSet rs = stmt.executeQuery(query);
 
 			// JTable 초기화
 			model.setNumRows(0);
 
-			String[] row = new String[4];// 컬럼의 갯수가 3
 			while (rs.next()) {
+				String[] row = new String[4];// 컬럼의 갯수가 4
 				row[0] = rs.getString("id");
 				row[1] = rs.getString("name");
 				row[2] = rs.getString("dept");
 				row[3] = rs.getString("ADDRESS");
 				model.addRow(row);
 			}
+			rs.close();
 
-		} catch (Exception e2) {
-			e2.printStackTrace();
+		} catch (Exception e1) {
+			// e.getStackTrace();
+			System.out.println(e1.getMessage());
 		}
-
 	}
-
 	public static void main(String[] args) {
 		new StudentList();
 	}

@@ -13,8 +13,12 @@ public class DBManager {
     			System.out.println("¿¬°á");
 		} catch (Exception e) {
 		}
+    	 
+    	  
     	  
     	  return conn;
+    	 
+    	  
     	  
     }
     

@@ -3,6 +3,8 @@ package main;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -157,7 +159,26 @@ public class LoginInsert extends JFrame{
 		});
 		
 		add(insertBtn);
-		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+					if (stmt != null) {
+						stmt.close();
+					}
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (Exception e1) {
+				}
+			}
+		});
 
 		this.setSize(440,600);
 		this.setVisible(true);

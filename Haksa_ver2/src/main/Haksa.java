@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import menu1.DeptManager;
 import menu1.StudentInsert;
 import menu1.StudentList;
 import menu2.BookInfo;
@@ -88,6 +88,24 @@ public class Haksa extends JFrame {
 		
 		menu1.add(menu1Item2);
 
+		
+		// menu1 End
+		JMenuItem menu1Item3 = new JMenuItem("학과 관리");
+		menu1Item3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("학생 등록");
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기
+				panel.add(new DeptManager()); // 화면 호충
+				panel.setLayout(null);
+			}
+		});
+		
+		menu1.add(menu1Item3);
+		
+		
 		mb.add(menu1);
 		// menu2 Start
 		JMenu menu2 = new JMenu("도서관리");

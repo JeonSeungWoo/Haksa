@@ -1,15 +1,15 @@
 package menu1;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,7 +34,8 @@ public class StudentInsert extends JPanel {
 	JTextField tfAdress = null;
 	DefaultTableModel model = null;
 	JTable table = null;
-
+	JComboBox adressSelectBox;
+	
 	public StudentInsert() {
 		/* DBcon ========================================== */
 		try {
@@ -43,12 +44,16 @@ public class StudentInsert extends JPanel {
 		} catch (Exception e) {
 
 		}
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
 
-		/* DBcon End*/
+		/* DBcon End */
 		add(new JLabel("학번"));
 		tfId = new JTextField(25);
 		add(tfId);
-		tfId.setEnabled(false);
+
+		tfId.setText(Integer.toString(year));
+//		tfId.setEnabled(false);
 		add(new JLabel("이름"));
 		tfName = new JTextField(25);
 		add(tfName);
@@ -56,24 +61,27 @@ public class StudentInsert extends JPanel {
 		add(new JLabel("학과"));
 		tfDept = new JTextField(25);
 		add(tfDept);
-
-		add(new JLabel("주소"));
-		tfAdress = new JTextField(25);
-		add(tfAdress);
+		String[] selectRow;
+// 셀렉트 ====================
 		try {
-			rs = stmt
-					.executeQuery("select " + "(to_char(sysdate,'YYYY') || stid_seq.nextval  )as \"id\"" + "from dual");
-
-			String id = "";
+			rs = stmt.executeQuery("select * from tbl_dept");
+			
+			
+			
 			while (rs.next()) {
-				id = rs.getString("id");
+				rs.getString("dept");
 			}
-
-			System.out.println(id);
-			tfId.setText(id);
+			
 		} catch (Exception e) {
+			
 		}
+	
+		selectRow = new String[4];
+		adressSelectBox = new JComboBox(selectRow);
+		add(adressSelectBox);
+	
 
+		// 버튼 시작 ====================================================
 		JButton btnInsert = new JButton("등록");
 		btnInsert.addActionListener(new ActionListener() {
 
@@ -91,16 +99,8 @@ public class StudentInsert extends JPanel {
 						pstmt.setString(4, tfAdress.getText());
 						pstmt.executeUpdate();
 						JOptionPane.showMessageDialog(null, "등록되었습니다.");
-						rs = stmt.executeQuery(
-								"select " + "(to_char(sysdate,'YYYY') || stid_seq.nextval  )as \"id\"" + "from dual");
 
-						String id = "";
-						while (rs.next()) {
-							id = rs.getString("id");
-						}
-
-						System.out.println(id);
-						tfId.setText(id);
+						tfId.setText("");
 						tfAdress.setText("");
 						tfName.setText("");
 						tfDept.setText("");

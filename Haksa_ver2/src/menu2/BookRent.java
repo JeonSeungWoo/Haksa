@@ -64,20 +64,21 @@ public class BookRent extends JPanel{
 			      if(deptIndex==0){ // 전체
 			       // Select문 실행
 			       query += " order by br.no";
-			       list();
+		
 			      }else if(deptIndex==1){ // 컴퓨터시스템     
 			       query += " and s.dept='컴퓨터시스템' ";
 			       query += " order by br.no";
-			       list();
+			
 			      }else if(deptIndex==2){ // 멀티미디어
 			       query += " and s.dept='멀티미디어' ";
 			       query += " order by br.no";
-			       list();
+			     
 			      }else if(deptIndex==3){ // 컴퓨터공학
 			       query += " and s.dept='컴퓨터공학' ";
 			       query += " order by br.no";
-			       list();
+			     
 			      }
+			      list();
 			}
 		});
 		

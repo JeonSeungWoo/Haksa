@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,7 +57,6 @@ public class Login extends JFrame {
 		idLabel.setBounds(80, 420, 40, 40);  //좌 여백 , 상백 , 내용물 좌우, 내용물 상하
 		add(idLabel);
 
-		
 		idField = new JTextField(20);
 		idField.setBounds(110, 430, 200, 20);  //좌 여백 , 상백 , 내용물 좌우, 내용물 상하
 		add(idField);
@@ -129,6 +130,27 @@ public class Login extends JFrame {
 		});
 		
 		add(loginAddBtn);
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+					if (stmt != null) {
+						stmt.close();
+					}
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (Exception e1) {
+				}
+			}
+		});
 
 		this.setSize(440,600);
 		this.setVisible(true);
