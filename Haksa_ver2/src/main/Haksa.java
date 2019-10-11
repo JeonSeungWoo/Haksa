@@ -28,7 +28,7 @@ public class Haksa extends JFrame {
 	public static PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	public static Connection conn = null;
-	public Haksa() { 
+	public Haksa() {  
 
 		try {
 			DBManager db = new DBManager();
@@ -148,8 +148,6 @@ public class Haksa extends JFrame {
 		mb.add(menu3);
 		this.setJMenuBar(mb);
 		
-		
-
 		this.add(panel);
 		
 

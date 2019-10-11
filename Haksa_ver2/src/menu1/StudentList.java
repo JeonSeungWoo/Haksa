@@ -36,10 +36,14 @@ public class StudentList extends JPanel {
 	JTextField tfName = null;
 	JTextField tfDept = null;
 	JTextField tfAdress = null;
+	JTextField tfId = null;
 	DefaultTableModel model = null;
 	JTable table = null;
 	JComboBox selectBox = new JComboBox();
 	String query;
+	
+	JTextField click = null;
+	String checkClick = "0";
 	public StudentList() {
 
 		try {
@@ -60,7 +64,7 @@ public class StudentList extends JPanel {
 		selectBox = new JComboBox(selectRow);
 		
 		add(selectBox);
-		
+		click = new JTextField(14);
 		tfSearch = new JTextField(14);
 		add(tfSearch);
 
@@ -110,30 +114,40 @@ public class StudentList extends JPanel {
 		model = new DefaultTableModel(colName, 0);
 		table = new JTable(model);
 
+		add(new JLabel("이름  :  "));
+		tfName = new JTextField(20);
+		add(tfName);
+//        tfName.setEnabled(false);
+		add(new JLabel("학과   :  "));
+		tfDept = new JTextField(20);
+		add(tfDept);
+
+		add(new JLabel("주소  :  "));
+		tfAdress = new JTextField(20);
+		add(tfAdress);
 		table.setPreferredScrollableViewportSize(new Dimension(250, 200));
 		add(new JScrollPane(table));
 
-		table.addMouseListener(new MouseAdapter() {
-
-		});
-
+        
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				click.setText("1");
 				table = (JTable) e.getComponent();
 				model = (DefaultTableModel) table.getModel();
 				String id = (String) model.getValueAt(table.getSelectedRow(), 0);
 				String name = (String) model.getValueAt(table.getSelectedRow(), 1);
 				String dept = (String) model.getValueAt(table.getSelectedRow(), 2);
 				String address = (String) model.getValueAt(table.getSelectedRow(), 3);
-
+				
 				tfSearch.setText(id);
 				tfName.setText(name);
 				tfDept.setText(dept);
 				tfAdress.setText(address);
+				
 			}
 		});
-
+        
 		JButton btnList = new JButton("전체");
 		// btnList버튼 이벤트
 		// Start-----------------------------------------------------------------
@@ -149,60 +163,69 @@ public class StudentList extends JPanel {
 		// btnList버튼 이벤트
 		// End-------------------------------------------------------------
 		add(btnList);
+		
+		String c = click.getText();
+		System.out.println(checkClick);
+	    	   
+	    	   
+	    	   //수정
+			 JButton updateBtn = new JButton("수정");
+				updateBtn.addActionListener(new ActionListener() {
 
-		JButton updateBtn = new JButton("수정");
-		updateBtn.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try {
+							String idText = tfSearch.getText();
+							stmt.executeUpdate(
+									"update student2 set  name = '" + tfName.getText() + "', dept = '" + tfDept.getText()
+											+ "', ADDRESS = '" + tfAdress.getText() + "'" + " where id = '" + idText + "'");
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String idText = tfSearch.getText();
-					stmt.executeUpdate(
-							"update student2 set  name = '" + tfName.getText() + "', dept = '" + tfDept.getText()
-									+ "', ADDRESS = '" + tfAdress.getText() + "'" + " where id = '" + idText + "'");
+							JOptionPane.showMessageDialog(null, "수정되었습니다.");
+							search();
 
-					JOptionPane.showMessageDialog(null, "수정되었습니다.");
-					search();
-
-				} catch (Exception e2) {
-					e2.printStackTrace();
-				}
-			}
-		});
-
-		add(updateBtn);
-
-		JButton deleBtn = new JButton("삭제");
-
-		deleBtn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String idText = tfSearch.getText();
-					System.out.println(idText);
-					int result = 0;
-
-					result = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?");
-					if (result == 0) {
-						stmt.executeUpdate("delete from student2 where id = '" + idText + "'");
-						JOptionPane.showMessageDialog(null, "삭제되었습니다.");
-					} else {
-						JOptionPane.showMessageDialog(null, "취소했습니다.");
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
 					}
+				});
 
-					search();
-					tfSearch.setText("");
-					tfName.setText("");
-					tfDept.setText("");
-				} catch (Exception e2) {
-					e2.printStackTrace();
-				}
+				add(updateBtn);
+				
+			  //삭제
+			 JButton deleBtn = new JButton("삭제");
 
-			}
-		});
+				deleBtn.addActionListener(new ActionListener() {
 
-		add(deleBtn);
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try {
+							String idText = tfSearch.getText();
+							System.out.println(idText);
+							int result = 0;
+
+							result = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?");
+							if (result == 0) {
+								stmt.executeUpdate("delete from student2 where id = '" + idText + "'");
+								JOptionPane.showMessageDialog(null, "삭제되었습니다.");
+							} else {
+								JOptionPane.showMessageDialog(null, "취소했습니다.");
+							}
+
+							search();
+							tfSearch.setText("");
+							tfName.setText("");
+							tfDept.setText("");
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+
+					}
+				});
+				add(deleBtn);
+				
+		
+		
+      
 
 		this.setSize(300, 500);
 		this.setVisible(true);
