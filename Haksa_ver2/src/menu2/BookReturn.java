@@ -150,11 +150,8 @@ public class BookReturn extends JPanel {
 		add(sp);
 		
 		
-		
-		
-
 		JButton returnBtn = new JButton("반납");
-		returnBtn.setBounds(200, 300, 80, 29); // 좌 여백 , 상백 , 내용물 좌우, 내용물 상하
+		returnBtn.setBounds(250, 300, 80, 29); // 좌 여백 , 상백 , 내용물 좌우, 내용물 상하
 		returnBtn.setBackground(Color.BLACK); // 바탕 색.
 		returnBtn.setForeground(Color.white);// 글씨 색.
 		
@@ -178,6 +175,7 @@ public class BookReturn extends JPanel {
 							pstmt = conn.prepareStatement("update tbl_book set numcheck = '1' where BID = ?");
 							pstmt.setString(1, bidField.getText());
 							
+							pstmt.executeUpdate();
 							JOptionPane.showMessageDialog(null, "반납 완료.");
 							
 							list();

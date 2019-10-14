@@ -167,6 +167,21 @@ public class BookRent extends JPanel {
 			}
 		});
 		
+
+		
+		JButton listBtn = new JButton("¸ñ·Ï");
+		listBtn.setBackground(Color.BLACK); // ¹ÙÅÁ »ö.
+		listBtn.setForeground(Color.white);// ±Û¾¾ »ö.
+		listBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				totalList();
+			}
+		});
+		
+		add(listBtn);
+		
 		JButton RentBtn = new JButton("´ëÃâ");
 		RentBtn.setBackground(Color.BLACK); // ¹ÙÅÁ »ö.
 		RentBtn.setForeground(Color.white);// ±Û¾¾ »ö.

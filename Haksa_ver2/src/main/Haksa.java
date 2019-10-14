@@ -163,14 +163,14 @@ public class Haksa extends JFrame {
 		
 		
 		
-		JMenu menu3 = new JMenu("도서통계");
-		JMenuItem menu3Item1 = new JMenuItem("대출 현황");
+		JMenu menu3 = new JMenu("통계");
+		JMenuItem menu3Item1 = new JMenuItem("도서통계");
 
 		menu3Item1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("학생 대출현황");
+				System.out.println("도서통계");
 				panel.removeAll();// 모든컴포넌스 삭제
 				panel.revalidate();// 다시활성화
 				panel.repaint(); // 다시 그리기	

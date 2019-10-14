@@ -97,13 +97,11 @@ public class StudentInsert extends JPanel {
 
 					rs = stmt.executeQuery("select count(*)as cnt from student2 where  id ='"+tfId.getText()+"'");
 
-					String idCnt = "0";
-					model.setNumRows(0);
-					String[] row = new String[2];//
+					String idCnt = "1";
 					while (rs.next()) {
 						idCnt = rs.getString("cnt");
 					}
-					if (idCnt.equals("0")) {
+					if (idCnt.equals("1")) {
 						idCheck = false;
 					}else {
 						idCheck = true;
