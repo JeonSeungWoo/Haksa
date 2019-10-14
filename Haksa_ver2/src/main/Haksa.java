@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import menu1.DeptManager;
 import menu1.StudentInsert;
 import menu1.StudentList;
+import menu2.BookInsert;
 import menu2.BookRent;
 import menu3.BookInfo;
 import util.DBManager;
@@ -124,9 +125,43 @@ public class Haksa extends JFrame {
 			}
 		});
 		menu2.add(menu2Item1);
-		mb.add(menu2);
+		
+		//------------------------------
+		JMenuItem menu2Item2 = new JMenuItem("대출");
+		menu2Item2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("대출");
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기
+				panel.add(new BookRent()); // 화면 호충
+				panel.setLayout(null);
+			}
+		});
+		menu2.add(menu2Item2);
+		
+		
+		//------------------------------
+		JMenuItem menu2Item3 = new JMenuItem("책등록");
+		menu2Item3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("책등록");
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기
+				panel.add(new BookInsert()); // 화면 호충
+				panel.setLayout(null);
+			}
+		});
+		menu2.add(menu2Item3);
+		
 		// menu2 End
-
+		mb.add(menu2);
+		
+		
+		
 		JMenu menu3 = new JMenu("도서통계");
 		JMenuItem menu3Item1 = new JMenuItem("대출 현황");
 

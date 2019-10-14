@@ -101,7 +101,7 @@ public class DeptManager extends JPanel {
 		model = new DefaultTableModel(colName, 0);
 		table = new JTable(model);
 
-		table.setPreferredScrollableViewportSize(new Dimension(320, 300));
+		table.setPreferredScrollableViewportSize(new Dimension(300,300 ));
 		add(new JScrollPane(table));
 
 		table.addMouseListener(new MouseAdapter() {
@@ -192,7 +192,7 @@ public class DeptManager extends JPanel {
 		});
 		add(deleBtn);
 		
-		setSize(400, 500);
+		setSize(350, 500);
 		setVisible(true);
 		totalList();
 	}

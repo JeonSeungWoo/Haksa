@@ -28,7 +28,7 @@ create SEQUENCE book_seq
 start with 1
 increment BY 1;
 
-insert into tbl_book(bid,title) values(book_seq.nextval,'ÀÚ¹Ù');
+
 
 
 create table bookrent(
