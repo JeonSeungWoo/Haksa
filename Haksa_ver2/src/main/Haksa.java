@@ -20,6 +20,7 @@ import menu1.StudentInsert;
 import menu1.StudentList;
 import menu2.BookInsert;
 import menu2.BookRent;
+import menu2.BookReturn;
 import menu3.BookInfo;
 import util.DBManager;
 
@@ -119,7 +120,7 @@ public class Haksa extends JFrame {
 				panel.removeAll();// 모든컴포넌스 삭제
 				panel.revalidate();// 다시활성화
 				panel.repaint(); // 다시 그리기
-				panel.add(new BookRent()); // 화면 호충
+				panel.add(new BookReturn()); // 화면 호충
 				panel.setLayout(null);
 
 			}
@@ -127,7 +128,7 @@ public class Haksa extends JFrame {
 		menu2.add(menu2Item1);
 		
 		//------------------------------
-		JMenuItem menu2Item2 = new JMenuItem("대출");
+		JMenuItem menu2Item2 = new JMenuItem("책 대출");
 		menu2Item2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
