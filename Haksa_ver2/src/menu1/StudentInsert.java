@@ -29,14 +29,15 @@ public class StudentInsert extends JPanel {
 	Statement stmt = Haksa.stmt;
 
 	// 택스트 필드
-	JTextField tfId = null;
-	JTextField tfName = null;
-	JTextField tfDept = null;
-	JTextField tfAdress = null;
+	JTextField tfId = new JTextField("");
+	JTextField tfName = new JTextField("");
+	JTextField tfAdress = new JTextField("");
 	DefaultTableModel model = null;
 	JTable table = null;
 	JComboBox deptSelectBox; 
 
+	
+	boolean idCheck = false;
 	public StudentInsert() {
 		/* DBcon ========================================== */
 		try {
@@ -60,8 +61,8 @@ public class StudentInsert extends JPanel {
 		add(tfName);
 //		        tfName.setEnabled(false);
 		add(new JLabel("주소"));
-		tfDept = new JTextField(25);
-		add(tfDept);
+		tfAdress = new JTextField(25);
+		add(tfAdress);
 
 // 셀렉트 ====================
 		ArrayList<String> list = new ArrayList<String>();
@@ -94,29 +95,46 @@ public class StudentInsert extends JPanel {
 					String deptVal = (String) deptSelectBox.getSelectedItem();
 					System.out.println("1 : " + deptVal);
 
+					rs = stmt.executeQuery("select count(*)as cnt from student2 where  id ='"+tfId.getText()+"'");
+
+					String idCnt = "0";
+					model.setNumRows(0);
+					String[] row = new String[2];//
+					while (rs.next()) {
+						idCnt = rs.getString("cnt");
+					}
+					if (idCnt.equals("0")) {
+						idCheck = false;
+					}else {
+						idCheck = true;
+					}
+					
 					// null 체크
-					if (tfId.getText().equals("") || tfName.getText().equals("") || deptVal.equals("")
-							|| tfAdress.getText().equals("")) {
+					if (tfId.getText().equals("") || tfName.getText().equals("") || tfAdress.getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "저장할 내용을 입력 하세요.");
 					} else {
-						int result = 0;
-						result = JOptionPane.showConfirmDialog(null, "등록하시겠습니까?");
-						if (result == 0) {
-							pstmt = conn.prepareStatement("insert into student2(id,name,dept,ADDRESS) values(?,?,?,?)");
-							pstmt.setString(1, tfId.getText());
-							pstmt.setString(2, tfName.getText());
-							pstmt.setString(3, deptVal);
-							pstmt.setString(4, tfAdress.getText());
-							pstmt.executeUpdate();
-							JOptionPane.showMessageDialog(null, "등록되었습니다.");
+						if (idCheck == false) {
+							JOptionPane.showMessageDialog(null, "해당 학번이 존재 합니다.");
+						}else {
+							int result = 0;
+							result = JOptionPane.showConfirmDialog(null, "등록하시겠습니까?");
+							if (result == 0) {
+								pstmt = conn.prepareStatement("insert into student2(id,name,dept,ADDRESS) values(?,?,?,?)");
+								pstmt.setString(1, tfId.getText());
+								pstmt.setString(2, tfName.getText());
+								pstmt.setString(3, deptVal);
+								pstmt.setString(4, tfAdress.getText());
+								pstmt.executeUpdate();
+								JOptionPane.showMessageDialog(null, "등록되었습니다.");
 
-							tfId.setText("");
-							tfAdress.setText("");
-							tfName.setText("");
-							tfDept.setText("");
-						} else {
-							JOptionPane.showMessageDialog(null, "취소했습니다.");
+								tfId.setText(Integer.toString(year));
+								tfAdress.setText("");
+								tfName.setText("");
+							} else {
+								JOptionPane.showMessageDialog(null, "취소했습니다.");
+							}
 						}
+						
 					}
 
 				} catch (Exception e2) {

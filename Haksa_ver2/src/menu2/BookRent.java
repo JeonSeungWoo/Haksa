@@ -191,9 +191,8 @@ public class BookRent extends JPanel {
 								pstmt.setString(2, bookNo.getText());
 								pstmt.executeUpdate();
 								
-								pstmt = conn.prepareStatement("update tbl_book set numcheck = ? where BID = ?");
-								pstmt.setInt(1, 0);
-								pstmt.setString(2, bookNo.getText());
+								pstmt = conn.prepareStatement("update tbl_book set numcheck = 0 where BID = ?");
+								pstmt.setString(1, bookNo.getText());
 								pstmt.executeUpdate();
 								
 								
