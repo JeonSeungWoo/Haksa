@@ -24,10 +24,10 @@ public class ColorUtil {
 			if ((i+1)%5 == 0) {
 				colorRe = 0;
 			}
-		    
-			if ((i+1)%5 == 0 && (i+1)%10 != 0) {
-				colorArr[i] = Color.gray;
-			}
+		    //원형 그래프시
+//			if ((i+1)%5 == 0 && (i+1)%10 != 0) {
+//				colorArr[i] = Color.gray;
+//			}
 			
 			
 		}

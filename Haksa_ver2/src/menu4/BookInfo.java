@@ -80,7 +80,7 @@ public class BookInfo extends JPanel{
 		ColorUtil color = new ColorUtil();
 		Color[] col= color.ColorReurn(list.size());
 		for (int i = 0; i < list.size(); i++) {
-			titleLabel[i] = new JLabel( i +". " + list.get(i).get("title") + " : ");
+			titleLabel[i] = new JLabel( (i+1) +". " + list.get(i).get("title") + " : ");
 			titleX = i*40;
 			
 			fill = i*40;
