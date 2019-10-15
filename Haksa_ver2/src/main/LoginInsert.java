@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import content.Haksa;
 import util.DBManager;
 
 public class LoginInsert extends JFrame{
@@ -138,7 +139,7 @@ public class LoginInsert extends JFrame{
 							pstmt.executeUpdate();
 							JOptionPane.showMessageDialog(null, "회원가입 되었습니다.");
 							
-							new Login(); // 클래스 newWindow를 새로 만들어낸다
+							new Main(); // 클래스 newWindow를 새로 만들어낸다
 							dispose();
 						} else {
 							JOptionPane.showMessageDialog(null, "취소했습니다.");

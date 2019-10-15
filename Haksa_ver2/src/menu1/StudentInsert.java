@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import main.Haksa;
+import content.Haksa;
 import util.DBManager;
 
 public class StudentInsert extends JPanel {

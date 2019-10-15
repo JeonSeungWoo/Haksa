@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,9 +19,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import content.Haksa;
 import util.DBManager;
 
-public class Login extends JFrame {
+public class Main extends JFrame {
 	ResultSet rs = null;
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -32,7 +31,7 @@ public class Login extends JFrame {
 	JTextField idField;
 	JPasswordField pwField;
 
-	public Login() {
+	public Main() {
 		try {
 			DBManager db = new DBManager();
 			conn = db.getConnection();
@@ -157,7 +156,7 @@ public class Login extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Login();
+		new Main();
 	}
 
 }

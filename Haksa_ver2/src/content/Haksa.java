@@ -1,4 +1,4 @@
-package main;
+package content;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
