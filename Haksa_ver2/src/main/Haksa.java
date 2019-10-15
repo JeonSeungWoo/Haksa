@@ -21,7 +21,7 @@ import menu1.StudentList;
 import menu2.BookInsert;
 import menu2.BookRent;
 import menu2.BookReturn;
-import menu3.BookInfo;
+import menu4.BookInfo;
 import util.DBManager;
 
 public class Haksa extends JFrame {
@@ -164,9 +164,29 @@ public class Haksa extends JFrame {
 		
 		
 		JMenu menu3 = new JMenu("통계");
-		JMenuItem menu3Item1 = new JMenuItem("도서통계");
-
+		JMenuItem menu3Item1 = new JMenuItem("학과통계");
 		menu3Item1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();// 모든컴포넌스 삭제
+				panel.revalidate();// 다시활성화
+				panel.repaint(); // 다시 그리기
+				panel.add(new BookInsert()); // 화면 호충
+				panel.setLayout(null);
+			}
+		});
+		
+		
+	    menu3.add(menu3Item1);
+	    mb.add(menu3);
+	   // menu3 End
+		
+		
+		//menu 4---
+		JMenu menu4 = new JMenu("통계 g");
+		JMenuItem menu4Item1 = new JMenuItem("도서통계");
+
+		menu4Item1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -180,8 +200,10 @@ public class Haksa extends JFrame {
 			}
 		});
 
-		menu3.add(menu3Item1);
-		mb.add(menu3);
+		
+		
+		menu4.add(menu4Item1);
+		mb.add(menu4);
 		this.setJMenuBar(mb);
 		
 		this.add(panel);

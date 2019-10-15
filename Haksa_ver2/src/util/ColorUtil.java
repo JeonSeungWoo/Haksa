@@ -19,7 +19,6 @@ public class ColorUtil {
 		int colorRe = 0;
 		
 		for (int i = 0; i < size; i++) {
-			System.out.println(i);
 			colorArr[i] = colorReturn[colorRe];
 			colorRe = colorRe + 1;
 			if ((i+1)%5 == 0) {
@@ -34,14 +33,6 @@ public class ColorUtil {
 		}
 		
 		return colorArr;
-	}
-	
-	
-	public static void main(String[] args) {
-		ColorUtil co = new ColorUtil();
-		System.out.println(Arrays.toString(co.ColorReurn(20)));
-		
-		
 	}
 
 }
