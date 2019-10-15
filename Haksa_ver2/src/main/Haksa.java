@@ -209,7 +209,7 @@ public class Haksa extends JFrame {
 			}
 		});
 
-		
+		setResizable(false);
 		this.setSize(700, 600);
 		this.setVisible(true);
 
