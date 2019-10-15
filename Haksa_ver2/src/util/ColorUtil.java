@@ -23,10 +23,12 @@ public class ColorUtil {
 			colorArr[i] = colorReturn[colorRe];
 			colorRe = colorRe + 1;
 			if ((i+1)%5 == 0) {
-				
 				colorRe = 0;
 			}
-		
+		    
+			if ((i+1)%5 == 0 && (i+1)%10 != 0) {
+				colorArr[i] = Color.gray;
+			}
 			
 			
 		}

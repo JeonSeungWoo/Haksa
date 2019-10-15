@@ -1,6 +1,7 @@
 package menu3;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +29,7 @@ public class BookInfo extends JPanel{
 	JLabel titleField[];
 	public BookInfo() {
 		
-		setSize(400, 500);
+		this.setSize(700, 600);
 		setVisible(true);
 	}
 	
@@ -63,29 +64,36 @@ public class BookInfo extends JPanel{
 			// TODO: handle exception
 		}
 		
+		JLabel titlela = new JLabel("※도서 빌린 건수");
+		titlela.setFont(new Font("Serif",Font.BOLD,10));
+		titlela.setFont(titlela.getFont().deriveFont(40.0f));
+		titlela.setBounds(170, 10, 550, 100); // 좌 여백 , 상백 , 내용물 좌우, 내용물 상하
+		add(titlela);
+		
+		
+		
 		//버전 1  (세로 막대 그래프) Color의 
 		int titleX = 0;
 		int fillRectX = 0;
-	
 		titleLabel = new JLabel[list.size()+1];
 		titleField = new JLabel[list.size()+1];
 		ColorUtil color = new ColorUtil();
 		Color[] col= color.ColorReurn(list.size());
 		for (int i = 0; i < list.size(); i++) {
-			titleLabel[i] = new JLabel(list.get(i).get("title") + " : ");
+			titleLabel[i] = new JLabel( i +". " + list.get(i).get("title") + " : ");
 			titleX = i*40;
 			
 			fillRectX = i*40;
-			titleLabel[i].setBounds(10,7+titleX,50,50);
+			titleLabel[i].setBounds(60,107+titleX,50,50);
 			add(titleLabel[i]);
 			
 			titleLabel[i] = new JLabel(list.get(i).get("cnt"));
-			titleLabel[i].setBounds(80,7+titleX,50,50);//가로 , 세로 , 박스 
+			titleLabel[i].setBounds(130,107+titleX,50,50);//가로 , 세로 , 박스 
 			add(titleLabel[i]);
 			
 			int result =  Integer.parseInt(list.get(i).get("cnt")) * 10;
 			g.setColor(col[i]);
-			g.fillRect(110, 20 +fillRectX, result, 20);//
+			g.fillRect(160, 120 +fillRectX, result, 20);//
 		}
 
 
