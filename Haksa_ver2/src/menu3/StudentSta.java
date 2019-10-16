@@ -8,12 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
-
+import menu1.StudentInsert;
 import statistics_s.AreaChart;
+import statistics_s.Chart_S;
 
 public class StudentSta extends JFrame {
 
@@ -34,10 +31,26 @@ public class StudentSta extends JFrame {
 		});
 		add(areaBtn);
 		
+		//버튼
+		JButton pieBtn = new JButton("파이차트");
+		pieBtn.setBounds(140, 20, 95, 30);  //좌 여백 , 상백 , 내용물 좌우, 내용물 상하
+		pieBtn.setBackground(Color.BLACK); //바탕 색.
+		pieBtn.setForeground(Color.white); //글씨 색.
+		pieBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//JFrame방식(다른 창에서 호출)
+				Chart_S pie = new Chart_S();
+				pie.pieChartEx();
+
+				
+			}
+		});
 		
 		
+		add(pieBtn);
 		
-		setSize(700,700);
+		setSize(700,600);
 		setVisible(true);
 	}
 	

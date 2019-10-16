@@ -1,3 +1,13 @@
+
+create table STUDENT(
+id char(7) PRIMARY KEY,
+name VARCHAR2(100) not null,
+depariment VARCHAR2(100) not null,
+address varchar2(100) not null
+);
+
+
+
 create table TBL_USER(
 id varchar(100) PRIMARY KEY,
 pw VARCHAR2(100) not null,
