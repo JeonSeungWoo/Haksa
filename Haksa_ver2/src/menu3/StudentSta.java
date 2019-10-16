@@ -13,10 +13,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class StudentSta extends JFrame {
+public class StudentSta extends JPanel {
 
 	JPanel panel = new JPanel();
 
+	
+	JComboBox deptSelectBox;
+	JComboBox deptSelectBox2;
+	
 	public StudentSta() {
 		setLayout(null);
 		/* 첫번째 디자인*/
@@ -34,12 +38,12 @@ public class StudentSta extends JFrame {
 	    add(imgLabel);
 		
 		String[] selectRow = {"학과","지역"};
-		JComboBox deptSelectBox = new JComboBox(selectRow);
+		deptSelectBox = new JComboBox(selectRow);
 		deptSelectBox.setBounds(300, 100, 80, 35);
 		add(deptSelectBox);
 		
 		String[] selectRow2 = {"2019","2018","2017","2016","2015"};
-		JComboBox deptSelectBox2 = new JComboBox(selectRow2);
+		deptSelectBox2 = new JComboBox(selectRow2);
 		deptSelectBox2.setBounds(300, 150, 80, 35);
 		add(deptSelectBox2);
 		//버튼
@@ -53,7 +57,10 @@ public class StudentSta extends JFrame {
 				//JFrame방식(다른 창에서 호출)
 				Chart_S chart = new Chart_S();			
 				//selected   , date
-				chart.pieChartEx("","");
+				int deptIdx = deptSelectBox.getSelectedIndex();
+				String yearString = (String)deptSelectBox2.getSelectedItem();
+				
+				chart.pieChartEx(deptIdx,yearString);
 			}
 		});
 		add(pieBtn);
