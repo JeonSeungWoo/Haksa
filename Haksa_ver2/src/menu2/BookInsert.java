@@ -41,7 +41,7 @@ public class BookInsert extends JPanel {
 		bookTile.setBounds(260, 10, 200, 100); // 좌 여백 , 상백 , 내용물 좌우, 내용물 상하
 		add(bookTile);
 		
-		ImageIcon loginMainImg  = new ImageIcon("./img/catBook.jpg");
+		ImageIcon loginMainImg  = new ImageIcon("img/catBook.jpg");
 	    Image loginMainImgReSize=  loginMainImg.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH );
 	    ImageIcon loginMainImgRe  = new ImageIcon(loginMainImgReSize);
 	    JLabel imgLabel = new JLabel(loginMainImgRe);

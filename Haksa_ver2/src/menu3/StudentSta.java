@@ -30,7 +30,7 @@ public class StudentSta extends JPanel {
 		pieTile.setBounds(190, 10, 350, 100); // 좌 여백 , 상백 , 내용물 좌우, 내용물 상하
 		add(pieTile);
 		
-		ImageIcon pieImg  = new ImageIcon("./img/pie.jpg");
+		ImageIcon pieImg  = new ImageIcon("img/pie.jpg");
 	    Image pieImgReSize=  pieImg.getImage().getScaledInstance(220, 220, Image.SCALE_SMOOTH );
 	    ImageIcon pieImgRe  = new ImageIcon(pieImgReSize);
 	    JLabel imgLabel = new JLabel(pieImgRe);
@@ -79,7 +79,7 @@ public class StudentSta extends JPanel {
 		areaTile.setBounds(190, 250, 350, 100); // 좌 여백 , 상백 , 내용물 좌우, 내용물 상하
 		add(areaTile);
 		
-		ImageIcon areaImg  = new ImageIcon("./img/area.jpg");
+		ImageIcon areaImg  = new ImageIcon("img/area.jpg");
 	    Image areaImgReSize=  areaImg.getImage().getScaledInstance(220, 220, Image.SCALE_SMOOTH );
 	    ImageIcon areaImgRe  = new ImageIcon(areaImgReSize);
 	    JLabel imgLabel2 = new JLabel(areaImgRe);

@@ -44,7 +44,7 @@ public class Main extends JFrame {
 		this.setTitle("·Î±×ÀÎ");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-	    ImageIcon loginMainImg  = new ImageIcon("./img/a.jpg");
+	    ImageIcon loginMainImg  = new ImageIcon("img/a.jpg");
 	    Image loginMainImgReSize=  loginMainImg.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH );
 	    ImageIcon loginMainImgRe  = new ImageIcon(loginMainImgReSize);
 	    JLabel imgLabel = new JLabel(loginMainImgRe);

@@ -12,7 +12,7 @@ public class MainImg extends JPanel{
 	public MainImg() {
 		setLayout(null);
 		
-	    ImageIcon loginMainImg  = new ImageIcon("./img/main.jpg");
+	    ImageIcon loginMainImg  = new ImageIcon("img/main.jpg");
 	    Image loginMainImgReSize=  loginMainImg.getImage().getScaledInstance(600, 700, Image.SCALE_SMOOTH );
 	    ImageIcon loginMainImgRe  = new ImageIcon(loginMainImgReSize);
 	    JLabel imgLabel = new JLabel(loginMainImgRe);
