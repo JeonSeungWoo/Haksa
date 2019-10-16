@@ -1,4 +1,9 @@
-package statistics_s;
+package menu3;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,10 +14,22 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-public class Chart_S extends JFrame {
+import content.Haksa;
+import util.DBManager;
 
-	//pie
-	public void pieChartEx() {
+public class Chart_S extends JFrame {
+	// 데이터 베이스 연결
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		Statement stmt = Haksa.stmt;
+		
+	//pie------------------------------------------------------------------------------
+	public void pieChartEx(String seleted,String date){
+		try {
+			DBManager db = new DBManager();
+			Connection conn = db.getConnection();
+		} catch (Exception e) {
+		}
 		
 		// Create dataset
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
@@ -31,9 +48,13 @@ public class Chart_S extends JFrame {
 	}
 	
 	
-	//area
+	//area------------------------------------------------------------------------------
 		public void areaChartEx() {
-			
+			try {
+				DBManager db = new DBManager();
+				Connection conn = db.getConnection();
+			} catch (Exception e) {
+			}
 			// Create dataset
 			DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 

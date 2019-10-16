@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import content.Haksa;
+import util.DBManager;
 
 public class DeptManager extends JPanel {
 	// DB¿¬°á.
@@ -42,13 +43,9 @@ public class DeptManager extends JPanel {
 	public DeptManager() {
 		// DB
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:myoracle", "ora_user", "woo");
-			stmt = conn.createStatement();
-
+			DBManager db = new DBManager();
+			conn = db.getConnection();
 		} catch (Exception e) {
-
-			e.printStackTrace();
 		}
 
 		setLayout(new FlowLayout());
