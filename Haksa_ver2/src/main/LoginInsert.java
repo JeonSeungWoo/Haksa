@@ -127,28 +127,33 @@ public class LoginInsert extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
-					if(checkConfirm == true) {
-						int result = JOptionPane.showConfirmDialog(null, "회원가입 하시겠습니까?");
-						if (result == 0) {
-							pstmt = conn.prepareStatement("insert into TBL_USER(id,pw,name,email) values(?,?,?,?)");
-							pstmt.setString(1, idField.getText());
-							pstmt.setString(2, pwField.getText());
-							pstmt.setString(3, nameField.getText());
-							pstmt.setString(4, emailField.getText());
-							pstmt.executeUpdate();
-							JOptionPane.showMessageDialog(null, "회원가입 되었습니다.");
+					if (idField.getText().equals("") || pwField.getText().equals("") || nameField.getText().equals("")
+							|| emailField.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "저장할 내용을 입력 하세요.");
+					} else {
+						if(checkConfirm == true) {
+							int result = JOptionPane.showConfirmDialog(null, "회원가입 하시겠습니까?");
+							if (result == 0) {
+								pstmt = conn.prepareStatement("insert into TBL_USER(id,pw,name,email) values(?,?,?,?)");
+								pstmt.setString(1, idField.getText());
+								pstmt.setString(2, pwField.getText());
+								pstmt.setString(3, nameField.getText());
+								pstmt.setString(4, emailField.getText());
+								pstmt.executeUpdate();
+								JOptionPane.showMessageDialog(null, "회원가입 되었습니다.");
+								
+								new Main(); // 클래스 newWindow를 새로 만들어낸다
+								dispose();
+							} else {
+								JOptionPane.showMessageDialog(null, "취소했습니다.");
+							}
 							
-							new Main(); // 클래스 newWindow를 새로 만들어낸다
-							dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "취소했습니다.");
+						}else {
+							JOptionPane.showMessageDialog(null, "아이디를 체크해 주세요!!");
 						}
-						
-					}else {
-						JOptionPane.showMessageDialog(null, "아이디를 체크해 주세요!!");
+							
 					}
-						
+					
 				
 
 				} catch (Exception e2) {
