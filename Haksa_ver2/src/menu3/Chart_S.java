@@ -31,7 +31,7 @@ public class Chart_S extends JFrame {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	Statement stmt = Haksa.stmt;
-		String query = "";
+	String query = "";
 		
 	//pie------------------------------------------------------------------------------
 	public void pieChartEx(int seleted,String year){
@@ -131,32 +131,69 @@ public class Chart_S extends JFrame {
 	
 	
 	//area------------------------------------------------------------------------------
-		public void areaChartEx() {
+		public void areaChartEx(int seleted) {
+			ArrayList<HashMap<String, String>> list = new ArrayList<>();
+			HashMap<String, String> map = new HashMap<String, String>();
 			try {
 				DBManager db = new DBManager();
 				conn = db.getConnection();
 				stmt = conn.createStatement();
+
+				if(seleted == 0) {
+					query += "select SUBSTR(id,0,4) year, dept ,count(*)cnt " + 
+							"from student2 GROUP by SUBSTR(id,0,4),dept " + 
+							"order by dept,year asc";
+				}else{
+					query += "select SUBSTR(id,0,4) year, address ,count(*)cnt " + 
+							"from student2 GROUP by SUBSTR(id,0,4),address " + 
+							"order by address,year asc";
+				}
 				
 				
+				rs = stmt.executeQuery(query);	
+				while (rs.next()) {
+					map = new HashMap<String, String>();
+					
+					if (seleted == 0) {
+						map.put("year",rs.getString("YEAR"));
+						map.put("content",rs.getString("DEPT"));
+						map.put("cnt",rs.getString("CNT"));
+						list.add(map);
+						
+					}else {
+						map.put("year",rs.getString("YEAR"));
+						map.put("content",rs.getString("ADDRESS"));
+						map.put("cnt",rs.getString("CNT"));
+						list.add(map);
+					}
+					
+				}
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
+		
+			
+			System.out.println(list);
+			
 			// Create dataset
 			DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-			dataset.addValue(10, "JavaWorld", "2017");
-			dataset.addValue(20, "JavaWorld", "2018");
-			dataset.addValue(30, "JavaWorld", "2019");
-
-			dataset.addValue(7, "Other", "2017");
-			dataset.addValue(11, "Other", "2018");
-			dataset.addValue(16, "Other", "2019");
-			
+			for (int i = 0; i < list.size(); i++) {
+				int cntInt = Integer.parseInt(list.get(i).get("cnt"));
+				String content = list.get(i).get("content");
+				String year = list.get(i).get("year");
+				dataset.addValue(cntInt, content, year);
+				
+			}
+		
 			// Create chart
 			JFreeChart chart = ChartFactory.createAreaChart("Title", // 제목
 					"Year", // 하단 내용.
 					"Percentage(%)", // 좌측 내용
 					dataset); // 데이터.
+			 chart.getTitle().setFont(new Font("돋움", Font.BOLD, 20));
+			 chart.getLegend().setItemFont(new Font("돋움", Font.PLAIN, 10));
 
+			 
 			// Create Panel
 			ChartPanel chartPanel = new ChartPanel(chart);
 			setContentPane(chartPanel);
@@ -193,7 +230,7 @@ public class Chart_S extends JFrame {
 
 	public static void main(String[] args) {
 		Chart_S pie = new Chart_S();
-		pie.pieChartEx(0,"2019");
-//		pie.areaChartEx();
+//		pie.pieChartEx(0,"2019");
+		pie.areaChartEx(1);
 	}
 }

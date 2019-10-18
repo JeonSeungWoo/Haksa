@@ -13,13 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class StudentSta extends JPanel {
+public class StudentSta extends JFrame {
 
 	JPanel panel = new JPanel();
 
 	
 	JComboBox deptSelectBox;
 	JComboBox deptSelectBox2;
+	
+	JComboBox areaDeptSelectBox;
 	
 	public StudentSta() {
 		setLayout(null);
@@ -86,6 +88,11 @@ public class StudentSta extends JPanel {
 	    imgLabel2.setBounds(40, 300, 220, 220);  //좌 여백 , 상백 , 내용물 좌우, 내용물 상하
 	    add(imgLabel2);
 
+		String[] areaSelectRow = {"학과","지역"};
+		areaDeptSelectBox = new JComboBox(areaSelectRow);
+		areaDeptSelectBox.setBounds(300, 399, 80, 35);
+		add(areaDeptSelectBox);
+	    
 		//버튼
 		JButton areaBtn = new JButton("chart");
 		areaBtn.setBounds(420, 400, 85, 30);  //좌 여백 , 상백 , 내용물 좌우, 내용물 상하
@@ -97,7 +104,8 @@ public class StudentSta extends JPanel {
 				//JFrame방식(다른 창에서 호출)
 				Chart_S chart = new Chart_S();			
 				//selected   , date
-				chart.areaChartEx();
+				int areaDeptIdx = areaDeptSelectBox.getSelectedIndex();
+				chart.areaChartEx(areaDeptIdx);
 			}
 		});
 		add(areaBtn);
