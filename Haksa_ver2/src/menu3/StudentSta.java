@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class StudentSta extends JFrame {
+public class StudentSta extends JPanel {
 
 	JPanel panel = new JPanel();
 
